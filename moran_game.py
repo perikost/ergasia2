@@ -8,6 +8,7 @@ from collections import Counter
 import networkx as nx
 import matplotlib.pyplot as plt
 
+from player_b import player_b_initialize
 from player_b import player_b_move
 
 
@@ -60,6 +61,10 @@ def get_random_node(g, rng) -> int:
     return node
 
 
+def player_a_initialize(g):
+    pass
+
+
 def player_a_move(g, node) -> int:
     neighbors = g.neighbors(node)
     list_of_neighbors = list(neighbors)
@@ -98,9 +103,13 @@ def run_moran_game(p):
             traceback.print_exc()
             sys.exit(f'Error: node {v} not in any set')
 
-    # types.append("A")
+    # Initialize players
 
-    pos = nx.spring_layout(G)
+    player_b_initialize(G)
+
+    # types.append("A")
+    if p.interactive:
+        pos = nx.spring_layout(G)
 
     step = 0
     while True:
