@@ -8,7 +8,7 @@ from collections import Counter
 import networkx as nx
 import matplotlib.pyplot as plt
 
-from player_b import player_B_move
+from player_b import player_b_move
 
 
 class Parameters:
@@ -60,7 +60,7 @@ def get_random_node(g, rng) -> int:
     return node
 
 
-def player_A_move(g, node) -> int:
+def player_a_move(g, node) -> int:
     neighbors = g.neighbors(node)
     list_of_neighbors = list(neighbors)
     node_types = nx.get_node_attributes(g, "types")
@@ -109,9 +109,9 @@ def run_moran_game(p):
         node_type = types[random_node][0]
 
         if node_type == 'A':
-            move = player_A_move(G, random_node)
+            move = player_a_move(G, random_node)
         elif node_type == 'B':
-            move = player_B_move(G, random_node)
+            move = player_b_move(G, random_node)
         else:
             traceback.print_exc()
             sys.exit(f'Error: unexpected type: {type}')

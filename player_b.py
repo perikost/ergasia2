@@ -1,7 +1,7 @@
 import networkx as nx
 
 
-def player_B_move(g, node) -> int:
+def player_b_move(g, node) -> int:
     neighbors = g.neighbors(node)
     list_of_neighbors = list(neighbors)
     node_types = nx.get_node_attributes(g, "types")
