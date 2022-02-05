@@ -2,7 +2,7 @@ import random
 import sys
 import time
 import traceback
-
+import warnings
 from collections import Counter
 
 import networkx as nx
@@ -24,6 +24,8 @@ class Parameters:
         self.m = m
         self.seed = seed
         self.interactive = interactive
+        self.a_moves = 0
+        self.b_moves = 0
 
     def __repr__(self):
         return "Parameters()"
@@ -119,10 +121,13 @@ def run_moran_game(p):
 
         if node_type == 'A':
             move = player_a_move(G, random_node)
+            # if move is None: print("none")
+            p.a_moves += 1
         elif node_type == 'B':
             move = player_b_move(G, random_node)
-            if move not in list(G.neighbors(random_node)):
+            if move not in list(G.neighbors(random_node)) and move != random_node:
                 raise Exception(f'Invalid move: Node {move} is not a neighbor of node {random_node}')
+            p.b_moves += 1
         else:
             traceback.print_exc()
             sys.exit(f'Error: unexpected type: {type}')
@@ -138,6 +143,8 @@ def run_moran_game(p):
 
         if num_of_types == 1:
             print(f'Parameters {p}, Fixation {distinct_keys} after {step} number of steps!')
+            print(f'Player A made {p.a_moves}')
+            print(f'Player B made {p.b_moves} \n')
             return list(distinct_keys)[0], step
 
 
