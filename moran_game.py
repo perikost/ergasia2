@@ -121,7 +121,7 @@ def run_moran_game(p):
             move = player_a_move(G, random_node)
         elif node_type == 'B':
             move = player_b_move(G, random_node)
-            if move not in list(G.neighbors(random_node)):
+            if move not in list(G.neighbors(random_node)) and move != random_node:
                 raise Exception(f'Invalid move: Node {move} is not a neighbor of node {random_node}')
         else:
             traceback.print_exc()
